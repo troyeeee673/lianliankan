@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nothing Just AN  Inchident</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nothing!!!——Inchident!!!</h1>
+            <div class="info">
+                <div class="stat">
+                    <span>score:</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="stat">
+                    <span>remaining:</span>
+                    <span id="remaining">0</span>
+                </div>
+                <div class="stat">
+                    <span>steps:</span>
+                    <span id="steps">0</span>
+                </div>
+                <!-- 新增倒计时显示 -->
+                <div class="stat">
+                    <span>time:</span>
+                    <span id="timer">180</span>
+                </div>
+                <!-- 新增安全车状态显示 -->
+                <div class="stat">
+                    <span>safety car:</span>
+                    <span id="safetyCarStatus">OFF</span>
+                </div>
+                <!-- 新增连续失误计数显示 -->
+                <div class="stat">
+                    <span>consecutive mistakes:</span>
+                    <span id="mistakes">0</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="game-board" id="gameBoard"></div>
+
+        <div class="controls">
+            <button id="newGameBtn" class="btn btn-primary">New Game</button>
+            <button id="undoBtn" class="btn btn-secondary">Undo</button>
+            <button id="hintBtn" class="btn btn-secondary">Tip</button>
+            <button id="settingsBtn" class="btn btn-secondary">Setting</button>
+        </div>
+
+        <div id="gameOverModal" class="modal">
+            <div class="modal-content">
+                <h2 id="gameOverTitle">Game Over</h2>
+                <p id="gameOverMessage">Your score: <span id="finalScore">0</span></p>
+                <p id="gameOverTime">Time used: <span id="finalTime">0</span>s</p>
+                <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+            </div>
+        </div>
+
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <h2>Game Settings</h2>
+                <div class="setting-item">
+                    <label>Difficulty:</label>
+                    <select id="difficultySelect">
+                        <option value="easy">Easy (6x6)</option>
+                        <option value="normal" selected>Normal (8x8)</option>
+                        <option value="hard">Hard (10x10)</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>themeSelect:</label>
+                    <select id="themeSelect">
+                        <option value="tracks" selected>track</option>
+                        <option value="cars">car</option>
+                        <option value="drivers1">drivers1</option>
+                        <option value="drivers2">drivers2</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>Time Limit (seconds):</label>
+                    <input type="number" id="timeLimitSelect" min="60" max="600" value="180" step="30">
+                </div>
+                <div class="buttons">
+                    <button id="confirmSettingsBtn" class="btn btn-primary">OK</button>
+                    <button id="closeSettingsBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <canvas id="highlightCanvas" style="display: none;"></canvas>
+        
+        <!-- 安全车特效容器 -->
+        <div id="safetyCarEffect" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+    </div>
+
+    <audio id="bgmAudio" loop>
+    <!-- 你可以提供多个格式以确保浏览器兼容性 -->
+    <source src="sounds/bgm.mp3" type="audio/mpeg">
+    <source src="sounds/bgm.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+    </audio>
+
+    <audio id="victoryAudio" preload="auto">
+    <source src="sounds/DU_DU_DU_DU.mp3" type="audio/mpeg">
+    <source src="sounds/DU_DU_DU_DU.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+    </audio>
+
+    <audio id="failureAudio" preload="auto">
+    <source src="sounds/stupid.mp3" type="audio/mpeg">
+    <source src="sounds/stupid.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+    </audio>
+
+    <!-- 庆祝音效 -->
+    <audio id="celebrationAudio" preload="auto" volume="0.5"></audio>
+    <!-- 安全车音效 -->
+    <audio id="safetyCarAudio" preload="auto" src="sounds/safety_car.mp3" volume="0.5"></audio>
+    <!-- 罚时音效 -->
+    <audio id="penaltyAudio" preload="auto" src="sounds/penalty.mp3" volume="0.5"></audio>
+
+    <script src="game.js"></script>
+</body>
+</html>
